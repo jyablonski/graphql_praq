@@ -1,0 +1,60 @@
+# Query 1
+{
+  books {
+    title
+    author
+  }
+}
+
+# Query 2
+{
+  players {
+    name
+    team
+    ppg
+  }
+
+}
+
+# Query 3
+{
+  allTeams {
+      rank
+      team
+      teamFull
+      conference
+      wins
+      losses
+      gamesPlayed
+      winPct
+      activeInjuries
+      activeProtocols
+      last10
+  }
+}
+
+# Query 4
+{
+  allTeams (limit: 1){
+      rank
+      team
+      teamFull
+      conference
+      wins
+      losses
+      gamesPlayed
+      winPct
+      activeInjuries
+      activeProtocols
+      last10
+  }
+}
+
+# Query 5
+mutation {
+  addPlayer(name: "LeBron James", team: "Los Angeles Lakers", ppg: 30.1) {
+    name
+    team
+    ppg 
+  }
+}
