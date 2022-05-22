@@ -34,15 +34,17 @@ class Mutation:
 
 @strawberry.type
 class Query:
-    # THESE 3 lines are basically defining the schema in the documentation.
+    # THESE 3 lines are defining the schema in the documentation on the graphql site
+    # you can OPTIONALLY also provide the actual query mechanism, like i did for players and teams
+    # all_teams i did it separately
     players: typing.List[Player] = strawberry.field(resolver=get_players)
     teams: typing.List[Team_Original] = strawberry.field(resolver=get_teams_original)
-    all_teams: typing.List[Team] = strawberry.field(resolver=get_teams)
+    all_teams: typing.List[Team]
 
     @strawberry.field
     def all_teams(self, info, limit: int = 250) -> typing.List[Team]:
         db = info.context["db"]
-        teams = get_teams(db, limit=limit)
+        teams = get_teams(db, limit=limit) # i wrote this in the models.py script
         return teams
 
 

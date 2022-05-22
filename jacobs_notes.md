@@ -1,5 +1,17 @@
 [Guide](https://fastapi.tiangolo.com/advanced/graphql/)
 
+4 Main Components:
+    * FastAPI handles the actual web framework stuff which uses uvicorn.  
+    * Strawberry is the Python library that gives a bunch of decorators to make working with GraphQL easier.
+    * SQLAlchemy lets you connect to a SQL Database so we can grab data & expose it with GraphQL.
+
+# Why Use GraphQL ?
+`With a REST-based API, books and authors would probably be returned by different endpoints (e.g., /api/books and /api/authors). The flexibility of GraphQL enables clients to query both resources with a single request.`
+    * This is the strength of GraphQL.
+
+Users can query exactly what they need beacuse the API enables the concept of relationships so you can make 1 query which can reference data from other tables, provided they've been connected together by the API Devs.  As opposed to hitting 7 different endpoints to grab what you need.
+
+# GraphQL Data Types & Info
 Scalar types are similar to Python primitive types. Here’s the list of the default scalar types in GraphQL:
 
     Int, a signed 32-bit integer, maps to python’s int
@@ -26,11 +38,7 @@ class Query:
 
 Everything is type hinted because to query shit you need to know the schema beforehand.
 
-`With a REST-based API, books and authors would probably be returned by different endpoints (e.g., /api/books and /api/authors). The flexibility of GraphQL enables clients to query both resources with a single request.`
-    * This is the strength of GraphQL.
-
-
-# Utils
+# Project Components
 
 ## Database
 This is where your database connection details go.
@@ -47,6 +55,9 @@ You can also define query parameters, but my tables are all 100% built correctly
 
 ## Schema
 This is where the GraphQL Stuff goes
+
+## Main
+This is where the FastAPI architecture lives, just a couple of lines of code.  The GraphQL API is available at `http://127.0.0.1:8000/graphql`
 
 # TO DO
 I didn't do anything with relationships yet.  i've done all of that logic in dbt, idk if it makes sense to go out of my way to implement that stuff here (connect players -> teams etc.)
