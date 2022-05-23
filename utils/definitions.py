@@ -1,10 +1,14 @@
 import strawberry
+from typing import Optional
 
-from utils.models import Team as TeamModel # this is the only model i've actually created
+from utils.models import (
+    Standings as StandingsModel,
+    Scorers as ScorersModel,
+)  # this is the only model i've actually created
 
 # the graphql way of defining schema.
 @strawberry.type
-class Team:
+class Standings:
     rank: str
     team: str
     team_full: str
@@ -19,6 +23,26 @@ class Team:
 
 
 @strawberry.type
+class Scorers:
+    player: str
+    team: str
+    full_team: str
+    season_avg_ppg: float
+    playoffs_avg_ppg: Optional[float]
+    season_ts_percent: Optional[float]
+    playoffs_ts_percent: Optional[float]
+    games_played: int
+    playoffs_games_played: Optional[int]
+    ppg_rank: int
+    top20_scorers: str
+    player_mvp_calc_adj: float
+    games_missed: int
+    penalized_games_missed: int
+    top5_candidates: str
+    mvp_rank: str
+
+
+@strawberry.type
 class Player:
     name: str
     team: str
@@ -30,6 +54,7 @@ class Team_Original:
     name: str
     color: str
     players: str
+
 
 # these are dummy "fixtures" with the schema provided from above so we can query them in graphql
 # normally you'd query this data from SQL

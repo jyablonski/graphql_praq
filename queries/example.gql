@@ -16,7 +16,7 @@
 
 }
 
-# Query 3
+# Query 3 fully functional query which scrapes remote sql and returns data in graphql
 {
   allTeams {
       rank
@@ -33,7 +33,7 @@
   }
 }
 
-# Query 4
+# Query 4 adding dynamic limit
 {
   allTeams (limit: 1){
       rank
@@ -50,11 +50,41 @@
   }
 }
 
-# Query 5
-mutation {
-  addPlayer(name: "LeBron James", team: "Los Angeles Lakers", ppg: 30.1) {
-    name
-    team
-    ppg 
+# Query 5 adding a filter condition to limit return set
+{
+  specificTeams (teamStr: "MIA", limit: 30){
+      rank
+      team
+      teamFull
+      conference
+      wins
+      losses
+      gamesPlayed
+      winPct
+      activeInjuries
+      activeProtocols
+      last10
+  }
+}
+
+# Query 6 - nullable columns
+{
+  scorerStats (limit: 500){
+      player
+      team
+      fullTeam
+      seasonAvgPpg
+      playoffsAvgPpg
+      seasonTsPercent
+      playoffsTsPercent
+      gamesPlayed
+      playoffsGamesPlayed
+      ppgRank
+      top20Scorers
+      playerMvpCalcAdj
+      gamesMissed
+      penalizedGamesMissed
+      top5Candidates
+      mvpRank
   }
 }
