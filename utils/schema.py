@@ -1,5 +1,5 @@
 from datetime import datetime
-import typing
+from typing import List
 import strawberry
 from strawberry.extensions import Extension
 from strawberry.asgi import GraphQL
@@ -7,13 +7,14 @@ from fastapi import FastAPI
 
 from utils.database import SessionLocal
 from utils.definitions import (
-    Team,
+    Standings,
+    Scorers,
     Player,
     Team_Original,
     get_players,
     get_teams_original,
 )
-from utils.models import get_teams
+from utils.models import get_standings, get_scorers
 
 
 class SQLAlchemySession(Extension):
@@ -37,15 +38,29 @@ class Query:
     # THESE 3 lines are defining the schema in the documentation on the graphql site
     # you can OPTIONALLY also provide the actual query mechanism, like i did for players and teams
     # all_teams i did it separately
-    players: typing.List[Player] = strawberry.field(resolver=get_players)
-    teams: typing.List[Team_Original] = strawberry.field(resolver=get_teams_original)
-    all_teams: typing.List[Team]
+    players: List[Player] = strawberry.field(resolver=get_players)
+    teams: List[Team_Original] = strawberry.field(resolver=get_teams_original)
+
+    all_teams: List[Standings]
+    scorer_stats: List[Scorers]
 
     @strawberry.field
-    def all_teams(self, info, limit: int = 250) -> typing.List[Team]:
+    def all_teams(self, info, limit: int = 250) -> List[Standings]:
         db = info.context["db"]
-        teams = get_teams(db, limit=limit) # i wrote this in the models.py script
+        teams = get_standings(db, limit=limit)  # i wrote this in the models.py script
         return teams
+
+    @strawberry.field
+    def specific_teams(self, info, team_str: str, limit: int = 250) -> List[Standings]:
+        db = info.context["db"]
+        teams = get_standings(db, limit=limit)  # i wrote this in the models.py script
+        return filter(lambda x: x.team == team_str, teams)
+
+    @strawberry.field
+    def scorer_stats(self, info, limit: int = 250) -> List[Scorers]:
+        db = info.context["db"]
+        scorers = get_scorers(db, limit=limit)  # i wrote this in the models.py script
+        return scorers
 
 
 schema = strawberry.Schema(query=Query, extensions=[SQLAlchemySession])

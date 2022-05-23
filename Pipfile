@@ -9,9 +9,10 @@ gunicorn = "*"
 strawberry-graphql = {extras = ["debug-server"], version = "*"}
 sqlalchemy = "*"
 psycopg2-binary = "*"
+discord = "*"
 
 [dev-packages]
 black = "==22.3.0"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"
