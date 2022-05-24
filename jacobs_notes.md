@@ -99,3 +99,9 @@ You can add a subdomain so the project can be accessed at a custom url (https://
 `deta logs --follow`
 
 2022-05-23 i removed `orjson` from requirements.txt and my pipenv shell (it must've been some random dependency) bc it was breaking deta.  doesn't look like it affects the graphql stuff at all.
+
+
+# Tests
+Mostly copied from [here](https://github.com/strawberry-graphql/strawberry/tree/main/tests/fastapi)
+
+Test success / fail queries but i need to figure out how to incorporate the code from my actual api and mock the sql calls yanno.

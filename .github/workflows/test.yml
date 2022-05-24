@@ -1,0 +1,41 @@
+name: GraphQL Testing
+
+# Trigger deployment only on push to master branch
+on:
+  pull_request:
+
+jobs:
+  deploy:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the Repo
+        uses: actions/checkout@v2
+
+      - name: Install Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Install Pipenv
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+
+      - name: Cache Python 3.9
+        uses: actions/cache@v3
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-python-${{ steps.setup-python.outputs.python-version }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+
+      - name: Install Dependencies
+        env:
+          PIPENV_NOSPIN: 'true'
+          WORKON_HOME: ~/.local/share/virtualenvs
+          PIPENV_CACHE_DIR: ~/.local/share/pipcache
+        if: steps.pipenv-cache.outputs.cache-hit != 'true'
+        run: pipenv install --dev
+
+      - name: Run Tests
+        run: pipenv run pytest -v
