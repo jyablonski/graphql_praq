@@ -10,6 +10,10 @@ start-graphql:
 start-fastapi:
 	@uvicorn main:app --reload
 
+.PHONY: deta-deploy
+deta-deploy:
+	@deta deploy
+
 .PHONY: bump-patch
 bump-patch:
 	@bump2version patch

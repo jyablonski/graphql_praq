@@ -1,6 +1,5 @@
 name: GraphQL Testing
 
-# Trigger deployment only on push to master branch
 on:
   pull_request:
 
