@@ -7,14 +7,19 @@ from fastapi import FastAPI
 
 from utils.database import SessionLocal
 from utils.definitions import (
+    Injuries,
+    Game_Types,
     Standings,
     Scorers,
     Player,
+    Reddit_Comments,
     Team_Original,
+    Team_Ratings,
+    Twitter_Comments,
     get_players,
     get_teams_original,
 )
-from utils.models import get_standings, get_scorers
+from utils.models import get_standings, get_scorers, get_team_ratings, get_twitter_comments, get_reddit_comments, get_injuries, get_game_types
 
 
 class SQLAlchemySession(Extension):
@@ -43,6 +48,11 @@ class Query:
 
     all_teams: List[Standings]
     scorer_stats: List[Scorers]
+    team_ratings: List[Team_Ratings]
+    twitter_comments: List[Twitter_Comments]
+    reddit_comments: List[Reddit_Comments]
+    injuries: List[Injuries]
+    game_types: List[Game_Types]
 
     @strawberry.field
     def all_teams(self, info, limit: int = 250) -> List[Standings]:
@@ -62,5 +72,34 @@ class Query:
         scorers = get_scorers(db, limit=limit)  # i wrote this in the models.py script
         return scorers
 
+    @strawberry.field
+    def team_ratings(self, info, limit: int = 30) -> List[Team_Ratings]:
+        db = info.context["db"]
+        team_ratings_data = get_team_ratings(db, limit=limit)  # i wrote this in the models.py script
+        return team_ratings_data
+
+    @strawberry.field
+    def twitter_comments(self, info, limit: int = 250) -> List[Twitter_Comments]:
+        db = info.context["db"]
+        twitter_comments_data = get_twitter_comments(db, limit=limit)  # i wrote this in the models.py script
+        return twitter_comments_data
+
+    @strawberry.field
+    def reddit_comments(self, info, limit: int = 250) -> List[Reddit_Comments]:
+        db = info.context["db"]
+        reddit_comments_data = get_reddit_comments(db, limit=limit)  # i wrote this in the models.py script
+        return reddit_comments_data
+
+    @strawberry.field
+    def injuries(self, info, limit: int = 100) -> List[Injuries]:
+        db = info.context["db"]
+        injuries_data = get_injuries(db, limit=limit)  # i wrote this in the models.py script
+        return injuries_data
+
+    @strawberry.field
+    def game_types(self, info, limit: int = 6) -> List[Game_Types]:
+        db = info.context["db"]
+        game_types_data = get_game_types(db, limit=limit)  # i wrote this in the models.py script
+        return game_types_data
 
 schema = strawberry.Schema(query=Query, extensions=[SQLAlchemySession])

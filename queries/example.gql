@@ -88,3 +88,79 @@
       mvpRank
   }
 }
+
+# Query 7 - Team Ratings
+{
+  teamRatings {
+    team
+    teamAcronym
+    w
+    l
+    ortg
+    drtg
+    nrtg
+    teamLogo
+    nrtgRank
+    drtgRank
+    ortgRank
+  }
+}
+
+# Query 8 - Twitter Comments
+{
+  twitterComments {
+    scrapeDate
+    username
+    tweet
+    url
+    likesCount
+    retweetsCount
+    repliesCount
+    compound
+    neg
+    neu
+    pos
+  }
+}
+
+# Query 9 - Reddit Comments
+{
+  redditComments {
+    scrapeDate
+    author
+    comment
+    flair
+    score
+    url
+    compound
+    neg
+    neu
+    pos
+  }
+}
+
+# Query 10 - Injuries
+{
+  injuries {
+    player
+    teamAcronym
+    team
+    date
+    status
+    injury
+    description
+    totalInjuries
+    teamActiveInjuries
+    teamActiveProtocols
+  }
+}
+
+# Query 11 - Game Types
+{
+  gameTypes {
+    gameType
+    type
+    n
+    explanation
+  }
+}

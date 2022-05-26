@@ -1,10 +1,7 @@
-import strawberry
+from datetime import date
 from typing import Optional
 
-from utils.models import (
-    Standings as StandingsModel,
-    Scorers as ScorersModel,
-)  # this is the only model i've actually created
+import strawberry
 
 # the graphql way of defining schema.
 @strawberry.type
@@ -41,6 +38,69 @@ class Scorers:
     top5_candidates: str
     mvp_rank: str
 
+
+@strawberry.type
+class Team_Ratings:
+    team: str
+    team_acronym: str
+    w: int
+    l: int
+    ortg: float
+    drtg: float
+    nrtg: float
+    team_logo: str
+    nrtg_rank: str
+    drtg_rank: str
+    ortg_rank: str
+
+
+@strawberry.type
+class Twitter_Comments:
+    scrape_date: date
+    username: str
+    tweet: str
+    url: str
+    likes_count: int
+    retweets_count: int
+    replies_count: int
+    compound: float
+    neg: float
+    neu: float
+    pos: float
+
+@strawberry.type
+class Reddit_Comments:
+    scrape_date: date
+    author: str
+    comment: str
+    flair: Optional[str]
+    score: int
+    url: str
+    compound: float
+    neg: float
+    neu: float
+    pos: float
+
+@strawberry.type
+class Injuries:
+    player: str
+    team_acronym: str
+    team: str
+    date: str
+    status: str
+    injury: str
+    description: str
+    total_injuries: int
+    team_active_injuries: int
+    team_active_protocols: int
+
+
+@strawberry.type
+class Game_Types:
+    game_type: str
+    type: str
+    n: int
+    explanation: str
 
 @strawberry.type
 class Player:
