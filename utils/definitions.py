@@ -68,6 +68,7 @@ class Twitter_Comments:
     neu: float
     pos: float
 
+
 @strawberry.type
 class Reddit_Comments:
     scrape_date: date
@@ -80,6 +81,7 @@ class Reddit_Comments:
     neg: float
     neu: float
     pos: float
+
 
 @strawberry.type
 class Injuries:
@@ -101,6 +103,7 @@ class Game_Types:
     type: str
     n: int
     explanation: str
+
 
 @strawberry.type
 class Player:
