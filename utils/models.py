@@ -1,7 +1,16 @@
 from datetime import date
 
 from psycopg2 import Date
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, select, Date, PrimaryKeyConstraint
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Float,
+    ForeignKey,
+    select,
+    Date,
+    PrimaryKeyConstraint,
+)
 from sqlalchemy.orm import relationship, joinedload
 from sqlalchemy.orm import Session
 
@@ -77,6 +86,7 @@ class Team_Ratings(Base):
     drtg_rank: str = Column(String, nullable=False)
     ortg_rank: str = Column(String, nullable=False)
 
+
 def get_team_ratings(db: Session, limit: int = 30):
     query = select(Team_Ratings).limit(limit)
 
@@ -87,9 +97,7 @@ def get_team_ratings(db: Session, limit: int = 30):
 
 class Twitter_Comments(Base):
     __tablename__ = "prod_twitter_comments"
-    __table_args__ = (
-        PrimaryKeyConstraint('scrape_date', 'username', 'tweet'),
-    )
+    __table_args__ = (PrimaryKeyConstraint("scrape_date", "username", "tweet"),)
 
     scrape_date: date = Column(Date, nullable=False)
     username: str = Column(String, nullable=False)
@@ -103,6 +111,7 @@ class Twitter_Comments(Base):
     neu: float = Column(Float, nullable=False)
     pos: float = Column(Float, nullable=False)
 
+
 def get_twitter_comments(db: Session, limit: int = 250):
     query = select(Twitter_Comments).limit(limit)
 
@@ -113,9 +122,7 @@ def get_twitter_comments(db: Session, limit: int = 250):
 
 class Reddit_Comments(Base):
     __tablename__ = "prod_reddit_comments"
-    __table_args__ = (
-        PrimaryKeyConstraint('scrape_date', 'author', 'comment'),
-    )
+    __table_args__ = (PrimaryKeyConstraint("scrape_date", "author", "comment"),)
 
     scrape_date: date = Column(Date, nullable=False)
     author: str = Column(String, nullable=False)
@@ -128,6 +135,7 @@ class Reddit_Comments(Base):
     neu: float = Column(Float, nullable=False)
     pos: float = Column(Float, nullable=False)
 
+
 def get_reddit_comments(db: Session, limit: int = 250):
     query = select(Reddit_Comments).limit(limit)
 
@@ -135,11 +143,10 @@ def get_reddit_comments(db: Session, limit: int = 250):
     discord_message(Reddit_Comments.__tablename__)
     return result.scalars()
 
+
 class Injuries(Base):
     __tablename__ = "prod_injuries"
-    __table_args__ = (
-        PrimaryKeyConstraint('player', 'injury', 'description'),
-    )
+    __table_args__ = (PrimaryKeyConstraint("player", "injury", "description"),)
 
     player: str = Column(String, nullable=False)
     team_acronym: str = Column(String, nullable=False)
@@ -152,6 +159,7 @@ class Injuries(Base):
     team_active_injuries: int = Column(Integer, nullable=False)
     team_active_protocols: int = Column(Integer, nullable=False)
 
+
 def get_injuries(db: Session, limit: int = 100):
     query = select(Injuries).limit(limit)
 
@@ -162,14 +170,13 @@ def get_injuries(db: Session, limit: int = 100):
 
 class Game_Types(Base):
     __tablename__ = "prod_game_types"
-    __table_args__ = (
-        PrimaryKeyConstraint('game_type', 'type'),
-    )
+    __table_args__ = (PrimaryKeyConstraint("game_type", "type"),)
 
     game_type: str = Column(String, nullable=False)
     type: str = Column(String, nullable=False)
     n: int = Column(Integer, nullable=False)
     explanation: str = Column(String, nullable=False)
+
 
 def get_game_types(db: Session, limit: int = 6):
     query = select(Game_Types).limit(limit)
