@@ -15,7 +15,7 @@ from sqlalchemy.orm import relationship, joinedload
 from sqlalchemy.orm import Session
 
 from .database import Base
-from .discord_hook import discord_message
+from .hooks import discord_message, sns_message
 
 # my version - this is like the SQLAlchemy way of defining schema.
 class Standings(Base):
@@ -39,6 +39,7 @@ def get_standings(db: Session, limit: int = 250):
 
     result = db.execute(query).unique()
     discord_message(Standings.__tablename__)
+    sns_message(Standings.__tablename__)
     return result.scalars()
 
 
@@ -67,7 +68,7 @@ def get_scorers(db: Session, limit: int = 250):
     query = select(Scorers).limit(limit)
 
     result = db.execute(query).unique()
-    discord_message(Scorers.__tablename__)
+    sns_message(Scorers.__tablename__)
     return result.scalars()
 
 
@@ -91,7 +92,7 @@ def get_team_ratings(db: Session, limit: int = 30):
     query = select(Team_Ratings).limit(limit)
 
     result = db.execute(query).unique()
-    discord_message(Team_Ratings.__tablename__)
+    sns_message(Team_Ratings.__tablename__)
     return result.scalars()
 
 
@@ -116,7 +117,7 @@ def get_twitter_comments(db: Session, limit: int = 250):
     query = select(Twitter_Comments).limit(limit)
 
     result = db.execute(query).unique()
-    discord_message(Twitter_Comments.__tablename__)
+    sns_message(Twitter_Comments.__tablename__)
     return result.scalars()
 
 
@@ -140,7 +141,7 @@ def get_reddit_comments(db: Session, limit: int = 250):
     query = select(Reddit_Comments).limit(limit)
 
     result = db.execute(query).unique()
-    discord_message(Reddit_Comments.__tablename__)
+    sns_message(Reddit_Comments.__tablename__)
     return result.scalars()
 
 
@@ -164,7 +165,7 @@ def get_injuries(db: Session, limit: int = 100):
     query = select(Injuries).limit(limit)
 
     result = db.execute(query).unique()
-    discord_message(Injuries.__tablename__)
+    sns_message(Injuries.__tablename__)
     return result.scalars()
 
 
@@ -178,9 +179,9 @@ class Game_Types(Base):
     explanation: str = Column(String, nullable=False)
 
 
-def get_game_types(db: Session, limit: int = 6):
+def get_game_types(db: Session, limit: int = 8):
     query = select(Game_Types).limit(limit)
 
     result = db.execute(query).unique()
-    discord_message(Game_Types.__tablename__)
+    sns_message(Game_Types.__tablename__)
     return result.scalars()
