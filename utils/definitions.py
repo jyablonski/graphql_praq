@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 import strawberry
@@ -56,13 +56,12 @@ class Team_Ratings:
 
 @strawberry.type
 class Twitter_Comments:
-    scrape_date: date
+    scrape_ts: datetime
     username: str
     tweet: str
     url: str
-    likes_count: int
-    retweets_count: int
-    replies_count: int
+    likes: int
+    retweets: int
     compound: float
     neg: float
     neu: float
