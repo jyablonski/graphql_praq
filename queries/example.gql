@@ -109,13 +109,12 @@
 # Query 8 - Twitter Comments
 {
   twitterComments {
-    scrapeDate
+    tweet
     username
     tweet
     url
-    likesCount
-    retweetsCount
-    repliesCount
+    likes
+    retweets
     compound
     neg
     neu

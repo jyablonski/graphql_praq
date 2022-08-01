@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from psycopg2 import Date
 from sqlalchemy import (
@@ -10,6 +10,7 @@ from sqlalchemy import (
     select,
     Date,
     PrimaryKeyConstraint,
+    TIMESTAMP
 )
 from sqlalchemy.orm import relationship, joinedload
 from sqlalchemy.orm import Session
@@ -98,15 +99,14 @@ def get_team_ratings(db: Session, limit: int = 30):
 
 class Twitter_Comments(Base):
     __tablename__ = "prod_twitter_comments"
-    __table_args__ = (PrimaryKeyConstraint("scrape_date", "username", "tweet"),)
+    __table_args__ = (PrimaryKeyConstraint("scrape_ts", "username", "tweet"),)
 
-    scrape_date: date = Column(Date, nullable=False)
+    scrape_ts: datetime = Column(TIMESTAMP, nullable=False)
     username: str = Column(String, nullable=False)
     tweet: str = Column(String, nullable=False)
     url: str = Column(String, nullable=False)
-    likes_count: int = Column(Integer, nullable=False)
-    retweets_count: int = Column(Integer, nullable=False)
-    replies_count: int = Column(Integer, nullable=False)
+    likes: int = Column(Integer, nullable=False)
+    retweets: int = Column(Integer, nullable=False)
     compound: float = Column(Float, nullable=False)
     neg: float = Column(Float, nullable=False)
     neu: float = Column(Float, nullable=False)
