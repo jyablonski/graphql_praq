@@ -1,0 +1,54 @@
+
+
+name: Jacob's GraphQL API Deployment
+
+on:
+  push:
+    branches:
+    - master
+
+env:
+  BUCKET_NAME : ${{ secrets.AWS_BUCKET }}
+  IAM_ROLE: ${{ secrets.IAM_ROLE }}
+  AWS_REGION : "us-east-1"
+
+# permission can be added at job level or workflow level    
+permissions:
+      id-token: write
+      contents: read    # This is required for actions/checkout
+
+jobs:
+  S3_Upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+    
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ env.IAM_ROLE }}
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
+    
+      - name: Install Python 3.9
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.9
+
+      - name: Zip Files
+        run: |
+          make install-packages-r
+          make zip
+      # stores it to the repo as an artifact you can download
+      # - name: Grab Artifact
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: my-artifact
+      #     path: lambda_function.zip
+
+      - name: Deploy to S3
+        env:
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+        run: |
+          aws s3 cp lambda_function.zip s3://$aws_bucket/graphql/
