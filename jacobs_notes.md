@@ -105,3 +105,10 @@ You can add a subdomain so the project can be accessed at a custom url (https://
 Mostly copied from [here](https://github.com/strawberry-graphql/strawberry/tree/main/tests/fastapi)
 
 Test success / fail queries but i need to figure out how to incorporate the code from my actual api and mock the sql calls yanno.
+
+
+`pipenv uninstall discord && pipenv clean`
+
+`deta logs` to see logs streamed to console bc the web ui sucks ass
+
+gave up on deta bc there's a 250 mb limit for your packages that you can't see, and it automatically deletes some of them to limit the deployment size without telling you.  yeet bby

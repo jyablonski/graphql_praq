@@ -6,11 +6,17 @@ name = "pypi"
 [packages]
 fastapi = {extras = ["all"], version = "*"}
 gunicorn = "*"
-strawberry-graphql = {extras = ["debug-server"], version = "*"}
+strawberry-graphql = {extras = ["debug-server", "opentelemetry"], version = "*"}
 sqlalchemy = "*"
 psycopg2-binary = "*"
-discord = "*"
-boto3 = "*"
+opentelemetry-api = "*"
+opentelemetry-sdk = "*"
+opentelemetry-instrumentation-sqlalchemy = "*"
+opentelemetry-instrumentation-fastapi = "*"
+opentelemetry-exporter-otlp-proto-http = "*"
+opentelemetry-instrumentation-requests = "*"
+opentelemetry-exporter-otlp = "*"
+mangum = "*"
 
 [dev-packages]
 black = "==22.3.0"
@@ -18,3 +24,6 @@ pytest = "*"
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true

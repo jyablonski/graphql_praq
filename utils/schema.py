@@ -4,6 +4,7 @@ from typing import List
 from fastapi import FastAPI
 import strawberry
 from strawberry.extensions import Extension
+from strawberry.extensions.tracing import OpenTelemetryExtension
 from strawberry.asgi import GraphQL
 
 from utils.database import SessionLocal
@@ -112,4 +113,4 @@ class Query:
         return game_types_data
 
 
-schema = strawberry.Schema(query=Query, extensions=[SQLAlchemySession])
+schema = strawberry.Schema(query=Query, extensions=[OpenTelemetryExtension, SQLAlchemySession])
