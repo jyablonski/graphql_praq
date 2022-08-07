@@ -10,6 +10,10 @@ start-graphql:
 start-fastapi:
 	@uvicorn main:app --reload
 
+.PHONY: deta-update-env
+deta-update-env:
+	@deta update -e .env
+
 .PHONY: deta-deploy
 deta-deploy:
 	@deta deploy
@@ -31,3 +35,14 @@ bump-major:
 	@bump2version major
 	@git push --tags
 	@git push
+
+.PHONY: install-packages-r
+install-packages-r:
+	@pip install -t lib -r requirements.txt
+
+.PHONY: zip
+zip:
+	@(cd lib; zip ../lambda_function.zip -r .)
+	@(zip lambda_function.zip -r utils/)
+	@(zip lambda_function.zip -r static/)
+	@(zip lambda_function.zip -r main.py)
