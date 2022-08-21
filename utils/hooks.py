@@ -1,7 +1,7 @@
 from datetime import datetime
 import os
 
-# 2022-08-07 deprecating all of this; added otel in 
+# 2022-08-07 deprecating all of this; added otel in
 # import boto3
 # from discord import Webhook, RequestsWebhookAdapter
 

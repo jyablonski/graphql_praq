@@ -112,3 +112,5 @@ Test success / fail queries but i need to figure out how to incorporate the code
 `deta logs` to see logs streamed to console bc the web ui sucks ass
 
 gave up on deta bc there's a 250 mb limit for your packages that you can't see, and it automatically deletes some of them to limit the deployment size without telling you.  yeet bby
+
+`https://stackoverflow.com/questions/65635346/how-can-i-enable-cors-in-fastapi`
