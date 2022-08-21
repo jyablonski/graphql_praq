@@ -10,12 +10,13 @@ from sqlalchemy import (
     select,
     Date,
     PrimaryKeyConstraint,
-    TIMESTAMP
+    TIMESTAMP,
 )
 from sqlalchemy.orm import relationship, joinedload
 from sqlalchemy.orm import Session
 
 from .database import Base
+
 # from .hooks import discord_message, sns_message
 
 # my version - this is like the SQLAlchemy way of defining schema.

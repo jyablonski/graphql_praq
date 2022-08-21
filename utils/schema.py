@@ -113,4 +113,6 @@ class Query:
         return game_types_data
 
 
-schema = strawberry.Schema(query=Query, extensions=[OpenTelemetryExtension, SQLAlchemySession])
+schema = strawberry.Schema(
+    query=Query, extensions=[OpenTelemetryExtension, SQLAlchemySession]
+)
