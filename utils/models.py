@@ -21,7 +21,7 @@ from .database import Base
 
 # my version - this is like the SQLAlchemy way of defining schema.
 class Standings(Base):
-    __tablename__ = "prod_standings"
+    __tablename__ = "standings"
 
     rank: str = Column(String, unique=True, nullable=False)
     team: str = Column(String, unique=True, primary_key=True, nullable=False)
@@ -46,7 +46,7 @@ def get_standings(db: Session, limit: int = 250):
 
 
 class Scorers(Base):
-    __tablename__ = "prod_scorers"
+    __tablename__ = "scorers"
 
     player: str = Column(String, unique=True, primary_key=True, nullable=False)
     team: str = Column(String, unique=True, nullable=False)
@@ -74,7 +74,7 @@ def get_scorers(db: Session, limit: int = 250):
 
 
 class Team_Ratings(Base):
-    __tablename__ = "prod_team_ratings"
+    __tablename__ = "team_ratings"
 
     team: str = Column(String, unique=True, primary_key=True, nullable=False)
     team_acronym: str = Column(String, unique=True, nullable=False)
@@ -97,7 +97,7 @@ def get_team_ratings(db: Session, limit: int = 30):
 
 
 class Twitter_Comments(Base):
-    __tablename__ = "prod_twitter_comments"
+    __tablename__ = "twitter_comments"
     __table_args__ = (PrimaryKeyConstraint("scrape_ts", "username", "tweet"),)
 
     scrape_ts: datetime = Column(TIMESTAMP, nullable=False)
@@ -120,7 +120,7 @@ def get_twitter_comments(db: Session, limit: int = 250):
 
 
 class Reddit_Comments(Base):
-    __tablename__ = "prod_reddit_comments"
+    __tablename__ = "reddit_comments"
     __table_args__ = (PrimaryKeyConstraint("scrape_date", "author", "comment"),)
 
     scrape_date: date = Column(Date, nullable=False)
@@ -143,7 +143,7 @@ def get_reddit_comments(db: Session, limit: int = 250):
 
 
 class Injuries(Base):
-    __tablename__ = "prod_injuries"
+    __tablename__ = "injuries"
     __table_args__ = (PrimaryKeyConstraint("player", "injury", "description"),)
 
     player: str = Column(String, nullable=False)
@@ -166,7 +166,7 @@ def get_injuries(db: Session, limit: int = 100):
 
 
 class Game_Types(Base):
-    __tablename__ = "prod_game_types"
+    __tablename__ = "game_types"
     __table_args__ = (PrimaryKeyConstraint("game_type", "type"),)
 
     game_type: str = Column(String, nullable=False)
